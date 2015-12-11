@@ -1,7 +1,7 @@
 {
   "title": "Rocket.Chat Screen Share",
   "name": "rocketchatscreenshare",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Enable screen sharing for Rocket.Chat",
   "main": "index.js",
   "author": "Rodrigo K. Nascimento",
