@@ -2,7 +2,7 @@
 
 // this background script is used to invoke desktopCapture API to capture screen-MediaStream.
 
-var session = ['screen', 'window', 'tab'];
+var session = ['screen', 'window'];
 
 chrome.runtime.onConnect.addListener(function (port) {
 	// this one is called for each message from "content-script.js"
