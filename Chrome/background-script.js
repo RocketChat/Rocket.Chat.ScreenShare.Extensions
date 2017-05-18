@@ -8,7 +8,21 @@ chrome.runtime.onConnect.addListener(function (port) {
 	// this one is called for each message from "content-script.js"
 	port.onMessage.addListener(function (message) {
 		if(message === 'get-sourceId') {
-			chrome.desktopCapture.chooseDesktopMedia(session, port.sender.tab, onAccessApproved);
+			// Tab for which the stream will be created (passed to
+			// chrome.desktopCapture.chooseDesktopMedia).
+			var tab = port.sender.tab;
+
+			// If the streamId is requested from frame with different url than
+			// its parent according to the documentation (
+			// https://developer.chrome.com/extensions/desktopCapture ) -
+			// "The stream can only be used by frames in the given tab whose
+			// security origin matches tab.url." That's why we need to change
+			// the url to the url of the frame (the frame is the sender).
+			// Related ticket:
+			// https://bugs.chromium.org/p/chromium/issues/detail?id=425344
+			tab.url = port.sender.url;
+
+			chrome.desktopCapture.chooseDesktopMedia(session, tab, onAccessApproved);
 		}
 	});
 
