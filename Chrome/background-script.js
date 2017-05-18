@@ -7,7 +7,9 @@ var session = ['screen', 'window'];
 chrome.runtime.onConnect.addListener(function (port) {
 	// this one is called for each message from "content-script.js"
 	port.onMessage.addListener(function (message) {
-		if(message === 'get-sourceId') {
+		if (message === 'get-RocketChatScreenSharingExtensionVersion') {
+			return port.postMessage({ version: chrome.runtime.getManifest().version });
+		} else if (message === 'get-sourceId') {
 			// Tab for which the stream will be created (passed to
 			// chrome.desktopCapture.chooseDesktopMedia).
 			var tab = port.sender.tab;
